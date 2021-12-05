@@ -75,7 +75,7 @@ wordpress-mysql   ClusterIP      None           <none>          3306/TCP       4
 
 ## gitOps 도구 ArgoCD 설치
 - ArgoCD 는 git과 kubernetes manifest를 연계하여 gitOps를 실현해주는 배포 도구이다.
-- 전통적인 CI/CD 프로세스는 CI툴에서 소스코드 빌드 -> 빌드된 결과물을 CD툴을 통해 배포라는 프로세스를 따른다, 반면에 ArgoCD는 CI와 관계 없이 git에 작성된 manifest에 집중한다. 애플리케이션의 소스 코드에서 시작한 패키지를 배포의 원천으로 하는 것이 아니라, git에 정의된 Pod, ConfigMap, Service, Secret 등을 원천으로 삼는다. 그러므로 ArgoCD를 통해 배포된 환경은 언제나 전체 환경의 일관성을 유지할 수 있다.
+- 전통적인 CI/CD 프로세스는 CI툴에서 소스코드 빌드 -> 빌드된 결과물을 CD툴을 통해 배포라는 프로세스를 따른다, 반면에 ArgoCD는 CD단계에서 CI와 관계 없이 git에 작성된 manifest에 집중한다. 애플리케이션의 소스 코드에서 시작한 패키지를 배포의 원천으로 하는 것이 아니라, git에 정의된 Pod, ConfigMap, Service, Secret 등을 원천으로 삼는다. 그러므로 ArgoCD를 통해 배포된 환경은 언제나 전체 환경의 일관성을 유지할 수 있다.
 - 아래의 명령어를 통해 ArgoCD를 설치한다
 ``` bash
 kubectl create namespace argocd
