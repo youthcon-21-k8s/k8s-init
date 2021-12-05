@@ -65,10 +65,10 @@ NAME                               READY   STATUS    RESTARTS   AGE
 wordpress-7b989dbf57-k46mj         1/1     Running   0          23m
 wordpress-mysql-6965fc8cc8-6mh5b   1/1     Running   0          25m
 [root@m-k8s-y ~]# kubectl get svc
-NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-kubernetes        ClusterIP   10.96.0.1        <none>        443/TCP        7h44m
-wordpress         NodePort    10.105.190.131   <none>        80:31944/TCP   23m
-wordpress-mysql   ClusterIP   None             <none>        3306/TCP       25m
+NAME              TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)        AGE
+kubernetes        ClusterIP      10.96.0.1      <none>          443/TCP        8h
+wordpress         LoadBalancer   10.99.165.35   192.168.1.240   80:31040/TCP   3s
+wordpress-mysql   ClusterIP      None           <none>          3306/TCP       47m
 ```
-- 현재 WordPress는 NodePort를 통해 노출하게 되어 있으므로 31944로 노출된 것을 알 수 있음(실행시마다 다를 수 있음)
-- 웹브라우저를 띄우고 http://192.168.1.10:31944 를 접속하여 워드프레스 정상 구동 확인
+- wordpress가 EXTERNAL-IP `192.168.1.240` 을 통해 노출된 것을 확인 가능
+- 웹브라우저를 띄우고 http://192.168.1.240 을 접속하여 워드프레스 정상 구동 확인
