@@ -1,0 +1,12 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: cstor-csi-disk
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: cstor.csi.openebs.io
+allowVolumeExpansion: true
+parameters:
+  cas-type: cstor
+  cstorPoolCluster: cstor-disk-pool
+  replicaCount: "1"
