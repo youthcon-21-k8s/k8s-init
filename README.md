@@ -5,7 +5,7 @@
 - Vagrant 설치: https://www.vagrantup.com/downloads
 
 ## 가상 머신 초기 구성
-- 이 리포지토리를 clone한 후 vagrant up 실행
+- 이 리포지토리를 clone한 후 `vagrant up` 실행
 - 쿠버네티스 환경이 자동 구성되며, 마스터 노드에 `127.0.0.1:60010` 으로 접속할 수 있게 됨
 
 ## 가상 머신 스토리지 구성
