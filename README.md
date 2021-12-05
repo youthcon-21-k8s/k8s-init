@@ -72,3 +72,25 @@ wordpress-mysql   ClusterIP      None           <none>          3306/TCP       4
 ```
 - wordpress가 EXTERNAL-IP `192.168.1.240` 을 통해 노출된 것을 확인 가능
 - 웹브라우저를 띄우고 http://192.168.1.240 을 접속하여 워드프레스 정상 구동 확인
+
+## gitOps 도구 ArgoCD 설치
+- ArgoCD 는 git과 kubernetes manifest를 연계하여 gitOps를 실현해주는 배포 도구이다.
+- 전통적인 CI/CD 프로세스는 CI툴에서 소스코드 빌드 -> 빌드된 결과물을 CD툴을 통해 배포라는 프로세스를 따른다, 반면에 ArgoCD는 CI와 관계 없이 git에 작성된 manifest에 집중한다. 애플리케이션의 소스 코드에서 시작한 패키지를 배포의 원천으로 하는 것이 아니라, git에 정의된 Pod, ConfigMap, Service, Secret 등을 원천으로 삼는다. 그러므로 ArgoCD를 통해 배포된 환경은 언제나 전체 환경의 일관성을 유지할 수 있다.
+- 아래의 명령어를 통해 ArgoCD를 설치한다
+``` bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+```
+- 아래의 명령어를 사용하여 ArgoCD를 로드밸런서를 통해 외부에 노출하고 확인한다. ArgoCD가 `192.168.1.241`로 노출된다.
+``` bash
+[root@m-k8s-y ~]# kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+service/argocd-server patched
+[root@m-k8s-y ~]# kubectl get svc -n argocd
+NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                      AGE
+argocd-dex-server       ClusterIP      10.100.144.213   <none>          5556/TCP,5557/TCP,5558/TCP   25s
+argocd-metrics          ClusterIP      10.98.101.201    <none>          8082/TCP                     25s
+argocd-redis            ClusterIP      10.111.69.1      <none>          6379/TCP                     25s
+argocd-repo-server      ClusterIP      10.100.76.209    <none>          8081/TCP,8084/TCP            25s
+argocd-server           LoadBalancer   10.107.231.222   192.168.1.241   80:31906/TCP,443:30779/TCP   25s
+argocd-server-metrics   ClusterIP      10.103.0.222     <none>          8083/TCP                     25s
+```
