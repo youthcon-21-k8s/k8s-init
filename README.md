@@ -38,6 +38,20 @@ spec:
 ```
 - 저장 후 `kubectl apply -f cstor-pool.yaml`로 스토리지 풀 생성
 - 스토리지 풀 생성 후 `kubectl apply -f cstor-storage-class.yaml`로 스토리지 클래스 생성, 이후 PV는 이 스토리지 클래스를 기본으로 사용함
+## 로드밸런서 설정
+- 역시 클라우드 기반 환경이 아니므로 로드밸런서 공급자가 없으므로 설정이 필요함
+- MetalLB라는 것을 사용할 것임
+- 아래의 명령어를 통해서 MetalLB를 사용할 수 있도록 kube-proxy 설정을 변경
+``` bash
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl apply -f - -n kube-system
+```
+- 아래의 명령을 통해 MetalLB를 설치
+``` bash
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
+```
 
 ## MySQL과 WordPress 설치를 통해 스토리지 세팅 확인
 - `kubectl apply -f mysql.yaml`  으로 MySQL 배포
