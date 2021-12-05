@@ -52,6 +52,8 @@ kubectl apply -f - -n kube-system
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
 ```
+- MetalLB가 설정되었다면 MetalLB의 설정을 해 주어야 함
+- `kubectl apply -f metallb-config.yaml` 명령어를 통해 설정을 적용
 
 ## MySQL과 WordPress 설치를 통해 스토리지 세팅 확인
 - `kubectl apply -f mysql.yaml`  으로 MySQL 배포
