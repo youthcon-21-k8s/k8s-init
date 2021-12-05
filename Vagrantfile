@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
       cfg.vm.provider "virtualbox" do |vb|
         vb.name = "m-k8s(youthcon)"
         vb.cpus = 2
-        vb.memory = 3072
+        vb.memory = 2048
         vb.customize ["modifyvm", :id, "--groups", "/k8s-youthcon"]
       end
       cfg.vm.host_name = "m-k8s-y"
@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
       cfg.vm.provider "virtualbox" do |vb|
         vb.name = "w#{i}-k8s(youthcon)"
         vb.cpus = 1
-        vb.memory = 2048
+        vb.memory = 2560
         vb.customize ["modifyvm", :id, "--groups", "/k8s-youthcon"]
       end
       cfg.vm.host_name = "w#{i}-k8s-y"
@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
       cfg.vm.provider "virtualbox" do |vb|
         vb.name = "s#{i}-k8s(youthcon)"
         vb.cpus = 1
-        vb.memory = 2048
+        vb.memory = 2560
         vb.customize ["modifyvm", :id, "--groups", "/k8s-youthcon"]
         file_check = "disk#{i}.vmdk"
         unless File.exist?(file_check)
