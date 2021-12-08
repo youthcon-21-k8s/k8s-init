@@ -22,7 +22,7 @@
 NAME                                           NODENAME   SIZE          CLAIMSTATE   STATUS   AGE
 blockdevice-75dae65d6dce81e12790ab8a2e35cf6b   s1-k8s-y   10736352768   Claimed      Active   72m
 ```
-- `vi cstor-pool.yaml`을 수행하여 blockDeviceName에 위 명령어 수행 결과의 name을 입력함
+- `vi cstor-pool-cluster.yaml`을 수행하여 blockDeviceName에 위 명령어 수행 결과의 name을 입력함
 ``` yaml
 [root@m-k8s-y ~]# vi cstor-pool.yaml
 apiVersion: cstor.openebs.io/v1
