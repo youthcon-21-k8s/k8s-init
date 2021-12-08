@@ -113,3 +113,18 @@ chmod 700 get_helm.sh
 [root@m-k8s-y ~]# helm version
 version.BuildInfo{Version:"v3.7.1", GitCommit:"1d11fcb5d3f3bf00dbe6fe31b8412839a96b3dc4", GitTreeState:"clean", GoVersion:"go1.16.9"}
 ```
+
+## 로그수집, 모니터링을 위한 loki-stack 설치
+- loki-stack은 loki(로그수집서버), promtail(로그수집 에이전트), prometheus(모니터링 메트릭 수집 서버), grafana(대시보드) 등을 모아놓은 stack이다. loki-stack의 구성 요소를 통해 쿠버네티스 클러스터의 로그와 메트릭 데이터를 수집하고 모니터링을 설정 및 시각화할 수 있다.
+- 아래의 명령어로 loki-stack을 설치한다
+``` bash
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm upgrade --install loki grafana/loki-stack \
+--set grafana.enabled=true,prometheus.enabled=true, \
+prometheus.alertmanager.persistentVolume.enabled=false, \
+prometheus.server.persistentVolume.enabled=false, \
+loki.persistence.enabled=true, \
+loki.persistence.storageClassName=cstor-csi-disk, \ 
+loki.persistence.size=5Gi
+```
