@@ -212,3 +212,4 @@ LmsWN9fYH4sUeUHMIvF5YYJUACeHbsUZBYd61edT
 
 ```
 - 찾아야 할 패스워드는 data > admin-password이다. JSONPath는 탐색 표현식을 중괄호 `{ }` 로 감싸서 사용할 수 있다. `.data.admin-password`를 통해 패스워드 값을 얻었으며, 쿠버네티스의 Secret는 base64 인코딩이 되어 있으므로 이를 디코딩하였다
+- 유저명 admin과 위의 명령어로 얻어낸 패스워드 `LmsWN9fYH4sUeUHMIvF5YYJUACeHbsUZBYd61edT`을 이용하여 http://192.168.56.242:3000 에서 grafana에 접속한다.
