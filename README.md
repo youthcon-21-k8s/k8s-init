@@ -154,3 +154,22 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install loki grafana/loki-stack  --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false,loki.persistence.enabled=true,loki.persistence.storageClassName=cstor-csi-disk,loki.persistence.size=5Gi
 ```
+- `kubectl expose deployment loki-grafana --type=LoadBalancer --name=loki-grafana-lb` 명령어로 grafana를 LoadBalancer로 노출시켜준다. 아래와 같이 `192.168.56.242`로 노출된 것을 확인할 수 있다.
+``` bash
+[root@m-k8s-y ~]# kubectl expose deployment loki-grafana --type=LoadBalancer --name=loki-grafana-lb
+service/loki-grafana-lb exposed
+[root@m-k8s-y ~]# kubectl get svc
+NAME                            TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                       AGE
+kubernetes                      ClusterIP      10.96.0.1        <none>           443/TCP                       41m
+loki                            ClusterIP      10.97.8.135      <none>           3100/TCP                      11m
+loki-grafana                    ClusterIP      10.105.119.124   <none>           80/TCP                        11m
+loki-grafana-lb                 LoadBalancer   10.98.131.176    192.168.56.242   80:32100/TCP,3000:31135/TCP   45s
+loki-headless                   ClusterIP      None             <none>           3100/TCP                      11m
+loki-kube-state-metrics         ClusterIP      10.96.88.18      <none>           8080/TCP                      11m
+loki-prometheus-alertmanager    ClusterIP      10.98.153.190    <none>           80/TCP                        11m
+loki-prometheus-node-exporter   ClusterIP      None             <none>           9100/TCP                      11m
+loki-prometheus-pushgateway     ClusterIP      10.97.230.200    <none>           9091/TCP                      11m
+loki-prometheus-server          ClusterIP      10.105.1.81      <none>           80/TCP                        11m
+wordpress                       LoadBalancer   10.98.88.179     192.168.56.240   80:30879/TCP                  25m
+wordpress-mysql                 ClusterIP      None             <none>           3306/TCP                      25m
+```
