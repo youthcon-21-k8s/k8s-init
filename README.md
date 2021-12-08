@@ -24,7 +24,7 @@ blockdevice-75dae65d6dce81e12790ab8a2e35cf6b   s1-k8s-y   10736352768   Claimed 
 ```
 - `vi cstor-pool-cluster.yaml`을 수행하여 blockDeviceName에 위 명령어 수행 결과의 name을 입력함
 ``` yaml
-[root@m-k8s-y ~]# vi cstor-pool.yaml
+[root@m-k8s-y ~]# vi cstor-pool-cluster.yaml
 apiVersion: cstor.openebs.io/v1
 kind: CStorPoolCluster
 metadata:
@@ -41,7 +41,7 @@ spec:
        dataRaidGroupType: "stripe"
 
 ```
-- 저장 후 `kubectl apply -f cstor-pool.yaml`로 스토리지 풀 생성
+- 저장 후 `kubectl apply -f cstor-pool-cluster.yaml`로 스토리지 풀 생성
 - 스토리지 풀 생성 후 `kubectl apply -f cstor-storage-class.yaml`로 스토리지 클래스 생성, 이후 PV는 이 스토리지 클래스를 기본으로 사용함
 ## 로드밸런서 설정
 - 역시 클라우드 기반 환경이 아니므로 로드밸런서 공급자가 없으므로 설정이 필요함
