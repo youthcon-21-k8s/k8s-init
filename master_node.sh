@@ -22,6 +22,9 @@ yum install bash-completion -y
 # kubectl completion on bash-completion dir
 kubectl completion bash >/etc/bash_completion.d/kubectl
 
+# git clone
+git clone https://github.com/youthcon-21-k8s/k8s-init.git
+
 # alias kubectl to k 
 echo 'alias k=kubectl' >> ~/.bashrc
 echo 'complete -F __start_kubectl k' >> ~/.bashrc
