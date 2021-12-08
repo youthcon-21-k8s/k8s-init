@@ -1,6 +1,6 @@
 # Youthcon21 실습을 위한 가상머신 환경
 ## 구성 및 사양
-- master 1노드(2core/2GB) + worker 2노드(1core/2.5GB) 의 kubernetes v1.22.3 클러스터
+- master 1노드(2core/2GB) + worker 2노드(1core/2.5GB) 의 kubernetes v1.21.7 클러스터
 - 16GB 이상의 RAM을 가진 실습 환경 권장
 - worker 노드 중 1노드에는 SATA 스토리지가 추가됨
 - OpenEBS 기반 볼륨 동적 프로비저닝을 사용하며 MetalLB 베어메탈 로드밸런서를 사용함
