@@ -12,11 +12,12 @@
 ## 가상 머신 초기 구성
 - 이 리포지토리를 clone한 후 `vagrant up` 실행
 - 쿠버네티스 환경이 자동 구성되며, 마스터 노드에 `127.0.0.1:60010` 으로 접속할 수 있게 됨
-- 접속 정보는 `ID: vagrant` 'PW: vagrant`, `su - root`로 루트 계정을 통해 아래의 작업이 이루어짐
+- 접속 정보는 `ID: vagrant, PW: vagrant` `su - root`로 루트 계정을 통해 아래의 작업이 이루어짐
 
 ## 가상 머신 스토리지 구성
 - 클라우드 기반 환경이 아니므로 볼륨을 호스트 경로를 쓰면 불편하기 때문에 스토리지 드라이버와 동적 프로비저너를 직접 구성함
 - `kubectl apply -f https://openebs.github.io/charts/cstor-operator.yaml` 을 통해 openebs-cstor를 설치
+- `kubectl get pods -n openebs` 명령어로 OpenEBS가 잘 구성되었는지 수시로 확인
 - cstor가 설치되고 나면 Storage Pool을 구성해야함. 아래 명령어 수행 결과의 <b>name</b>을 활용할 것임
 ``` bash
 [root@m-k8s-y ~]# kubectl get bd -n openebs
