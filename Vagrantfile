@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
   N = 1 # max number of worker nodes
-  Ver = '1.22.3' # Kubernetes Version to install
+  Ver = '1.21.7' # Kubernetes Version to install
   
   #=============#
   # Master Node #
@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
         vb.customize ["modifyvm", :id, "--groups", "/k8s-youthcon"]
       end
       cfg.vm.host_name = "m-k8s-y"
-      cfg.vm.network "private_network", ip: "192.168.1.10"
+      cfg.vm.network "private_network", ip: "192.168.56.10"
       cfg.vm.network "forwarded_port", guest: 22, host: 60010, auto_correct: true, id: "ssh"
       cfg.vm.synced_folder "../data", "/vagrant", disabled: true 
       cfg.vm.provision "shell", path: "config.sh", args: N
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
         vb.customize ["modifyvm", :id, "--groups", "/k8s-youthcon"]
       end
       cfg.vm.host_name = "w#{i}-k8s-y"
-      cfg.vm.network "private_network", ip: "192.168.1.10#{i}"
+      cfg.vm.network "private_network", ip: "192.168.56.10#{i}"
       cfg.vm.network "forwarded_port", guest: 22, host: "6010#{i}", auto_correct: true, id: "ssh"
       cfg.vm.synced_folder "../data", "/vagrant", disabled: true
       cfg.vm.provision "shell", path: "config.sh", args: N
@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
         vb.customize [ "storageattach", :id, "--storagectl", "SATA", "--port", "1", "--device", "0", "--type", "hdd", "--medium", "disk#{i}.vmdk"]
       end
       cfg.vm.host_name = "s#{i}-k8s-y"
-      cfg.vm.network "private_network", ip: "192.168.1.11#{i}"
+      cfg.vm.network "private_network", ip: "192.168.56.11#{i}"
       cfg.vm.network "forwarded_port", guest: 22, host: "6020#{i}", auto_correct: true, id: "ssh"
       cfg.vm.synced_folder "../data", "/vagrant", disabled: true
       cfg.vm.provision "shell", path: "config.sh", args: N
