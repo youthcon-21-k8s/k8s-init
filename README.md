@@ -83,7 +83,15 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manif
 ```
 - MetalLB가 설정되었다면 MetalLB의 설정을 해 주어야 함
 - `kubectl apply -f metallb-config.yaml` 명령어를 통해 설정을 적용
-
+- MetalLB가 정상적으로 구성되었다면 아래와 같다
+``` bash
+[root@m-k8s-y k8s-init]# kubectl get pods -n metallb-system
+NAME                          READY   STATUS    RESTARTS   AGE
+controller-7dcc8764f4-hmdjj   1/1     Running   0          32s
+speaker-8hhj2                 1/1     Running   0          32s
+speaker-tt7br                 1/1     Running   0          32s
+speaker-wx4nt                 1/1     Running   0          32s
+```
 ## MySQL과 WordPress 설치를 통해 스토리지 세팅 확인
 - `kubectl apply -f mysql.yaml`  으로 MySQL 배포
 - `kubectl apply -f wordpress.yaml` 으로 WordPress 배포
