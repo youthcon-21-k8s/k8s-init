@@ -154,7 +154,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install loki grafana/loki-stack  --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false,loki.persistence.enabled=true,loki.persistence.storageClassName=cstor-csi-disk,loki.persistence.size=5Gi
 ```
-- `kubectl expose deployment loki-grafana --type=LoadBalancer --name=loki-grafana-lb` 명령어로 grafana를 LoadBalancer로 노출시켜준다. 아래와 같이 `192.168.56.242`로 노출된 것을 확인할 수 있다.
+- `kubectl expose deployment loki-grafana --type=LoadBalancer --name=loki-grafana-lb` 명령어로 grafana를 LoadBalancer로 노출시켜준다. 아래와 같이 `192.168.56.242`로 노출된 것을 확인할 수 있다. grafana의 Web UI는 3000번 포트로 접속한다.
 ``` bash
 [root@m-k8s-y ~]# kubectl expose deployment loki-grafana --type=LoadBalancer --name=loki-grafana-lb
 service/loki-grafana-lb exposed
