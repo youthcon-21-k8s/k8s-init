@@ -45,6 +45,28 @@ spec:
 ```
 - 저장 후 `kubectl apply -f cstor-pool-cluster.yaml`로 스토리지 풀 생성
 - 스토리지 풀 생성 후 `kubectl apply -f cstor-storage-class.yaml`로 스토리지 클래스 생성, 이후 PV는 이 스토리지 클래스를 기본으로 사용함
+- 모든 것이 잘 설치되고 나면 설치된 구성요소는 다음과 같다
+``` bash
+[root@m-k8s-y k8s-init]# kubectl get pods -n openebs
+NAME                                              READY   STATUS    RESTARTS   AGE
+cspc-operator-7c645f96d9-45jjm                    1/1     Running   0          3m7s
+cstor-disk-pool-tggc-bc7d96b5d-4lbsq              3/3     Running   0          71s
+cvc-operator-6b7d6dcbc5-84nt5                     1/1     Running   0          3m7s
+openebs-cstor-admission-server-6ff6948d9b-9brpn   1/1     Running   0          3m7s
+openebs-cstor-csi-controller-0                    6/6     Running   0          3m7s
+openebs-cstor-csi-node-5xxrc                      2/2     Running   0          3m7s
+openebs-cstor-csi-node-zqjcp                      2/2     Running   0          3m7s
+openebs-ndm-bbbw5                                 1/1     Running   0          3m7s
+openebs-ndm-c72w9                                 1/1     Running   0          3m7s
+openebs-ndm-cluster-exporter-77dcf59f67-t4l5c     1/1     Running   0          3m7s
+openebs-ndm-node-exporter-gsmgq                   1/1     Running   0          3m6s
+openebs-ndm-node-exporter-njgfn                   1/1     Running   0          3m6s
+openebs-ndm-operator-74d8c6cdf6-hxvsf             1/1     Running   0          3m7s
+[root@m-k8s-y k8s-init]# kubectl get sc
+NAME                       PROVISIONER            RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+cstor-csi-disk (default)   cstor.csi.openebs.io   Delete          Immediate           true                   103s
+```
+
 ## 로드밸런서 설정
 - 역시 클라우드 기반 환경이 아니므로 로드밸런서 공급자가 없으므로 설정이 필요함
 - MetalLB라는 것을 사용할 것임
