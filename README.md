@@ -116,7 +116,7 @@ wordpress-mysql   ClusterIP      None           <none>          3306/TCP       4
 - 아래의 명령어를 통해 ArgoCD를 설치한다
 ``` bash
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 - 아래의 명령어를 사용하여 ArgoCD를 로드밸런서를 통해 외부에 노출하고 확인한다. ArgoCD가 `192.168.56.241`로 노출된다.
 ``` bash
