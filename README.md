@@ -173,3 +173,42 @@ loki-prometheus-server          ClusterIP      10.105.1.81      <none>          
 wordpress                       LoadBalancer   10.98.88.179     192.168.56.240   80:30879/TCP                  25m
 wordpress-mysql                 ClusterIP      None             <none>           3306/TCP                      25m
 ```
+- grafana의 기본 비밀번호는 secret에 저장되어 있다. 이 비밀번호는 `kubectl get secrets loki-grafana -o jsonpath='{.data.admin-password}'|base64 -d` 명령어로 찾을 수 있다.
+``` bash
+[root@m-k8s-y ~]# kubectl get secrets loki-grafana -o jsonpath='{.data.admin-password}'|base64 -d
+LmsWN9fYH4sUeUHMIvF5YYJUACeHbsUZBYd61edT
+```
+- JSONPath는 JSON 객체를 탐색하는 표준 방식이다. 위에서 데이터를 찾아낸 Secret을 JSON으로 표현하면 다음과 같다.
+``` json
+[root@m-k8s-y ~]# kubectl get secrets loki-grafana -o json
+{
+    "apiVersion": "v1",
+    "data": {
+        "admin-password": "TG1zV045ZllINHNVZVVITUl2RjVZWUpVQUNlSGJzVVpCWWQ2MWVkVA==",
+        "admin-user": "YWRtaW4=",
+        "ldap-toml": ""
+    },
+    "kind": "Secret",
+    "metadata": {
+        "annotations": {
+            "meta.helm.sh/release-name": "loki",
+            "meta.helm.sh/release-namespace": "default"
+        },
+        "creationTimestamp": "2021-12-08T14:08:19Z",
+        "labels": {
+            "app.kubernetes.io/instance": "loki",
+            "app.kubernetes.io/managed-by": "Helm",
+            "app.kubernetes.io/name": "grafana",
+            "app.kubernetes.io/version": "8.1.6",
+            "helm.sh/chart": "grafana-6.16.12"
+        },
+        "name": "loki-grafana",
+        "namespace": "default",
+        "resourceVersion": "4675",
+        "uid": "02c11cf1-09e9-42e3-91b2-2b81b988f5c9"
+    },
+    "type": "Opaque"
+}
+
+```
+- 찾아야 할 패스워드는 data > admin-password이다. JSONPath는 탐색 표현식을 중괄호 `{ }` 로 감싸서 사용할 수 있다. `.data.admin-password`를 통해 패스워드 값을 얻었으며, 쿠버네티스의 Secret는 base64 인코딩이 되어 있으므로 이를 디코딩하였다
