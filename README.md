@@ -99,3 +99,17 @@ argocd-repo-server      ClusterIP      10.100.76.209    <none>          8081/TCP
 argocd-server           LoadBalancer   10.107.231.222   192.168.1.241   80:31906/TCP,443:30779/TCP   25s
 argocd-server-metrics   ClusterIP      10.103.0.222     <none>          8083/TCP                     25s
 ```
+
+## 패키지 매니저 helm 설치
+- helm 은 RHEL의 yum, 맥의 brew등과 같이 쿠버네티스에 필요한 패키지를 쉽게 설치해주는 패키지 매니저이다.
+- 아래의 명령어를 통해 helm을 설치한다
+``` bash
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+- 아래의 명령으로 helm 설치를 확인한다
+``` bash
+[root@m-k8s-y ~]# helm version
+version.BuildInfo{Version:"v3.7.1", GitCommit:"1d11fcb5d3f3bf00dbe6fe31b8412839a96b3dc4", GitTreeState:"clean", GoVersion:"go1.16.9"}
+```
